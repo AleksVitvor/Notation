@@ -4,13 +4,12 @@
 using namespace std;
 int main() {
 	setlocale(0, "rus");
+	bool flag = false;
 	string str;
 	string str1{};
 	string result{};
 	cout << "¬ведите строку: ";
 	getline(cin, str);
-	//первый проход - с булевской переменной из тру в фолс: берЄм со стека чисел 2 числа, со стека знаков один знак, затем последйющие проходы берЄм со стека одно число и один знак со стека знаков 
-	size_t index = 0;
 	short i = 0;
 	while (str[i] != '=')
 	{
@@ -19,7 +18,6 @@ int main() {
 	}
 	str.erase(0, i + 1);
 	str.erase(str.length() - 1, 1);
-	cout << str << endl;
 	for (short i = 0; i < str.length(); i++)
 	{
 		if ((str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/') && str[i - 1] != ')' && str[i - 1] != '(')
@@ -32,7 +30,6 @@ int main() {
 			str1 += str[i];
 		}
 	}
-	cout << str1 << endl;
 	stack<int> numbers;
 	stack<char> symbols;
 	int value = 0;
@@ -59,6 +56,7 @@ int main() {
 			sign = str1[i];
 			if (sign == '(')
 			{
+				flag = false;
 				symbols.push(sign);
 				continue;
 			}
@@ -74,6 +72,17 @@ int main() {
 					int left = numbers.top();
 					numbers.pop();
 					int right = numbers.top();
+					if (!flag)
+					{
+						cout << right << " " << left << " ";
+						flag = true;
+						cout << sign1 << " ";
+					}
+					else
+					{
+						cout << right << " ";
+						cout << sign1 << " ";
+					}
 					numbers.pop();
 					switch (sign1) {
 					case '+':   numbers.push(right + left); break;
@@ -99,6 +108,17 @@ int main() {
 				numbers.pop();
 				int right = numbers.top();
 				numbers.pop();
+				if (!flag)
+				{
+					cout << right << " " << left << " ";
+					flag = true;
+					cout << sign1 << " ";
+				}
+				else
+				{
+					cout << right << " ";
+					cout << sign1 << " ";
+				}
 				switch (sign1) {
 				case '+':   numbers.push(right + left); break;
 				case '-':   numbers.push(right - left); break;
@@ -128,17 +148,27 @@ int main() {
 			numbers.pop();
 			int right = numbers.top();
 			numbers.pop();
+			if (!flag)
+			{
+				cout << right << " " << left << " ";
+				flag = true;
+				cout << sign1 << " ";
+			}
+			else
+			{
+				cout << sign1 << " ";
+			}
 			switch (sign1) {
 			case '+':   numbers.push(right + left); break;
 			case '-':   numbers.push(right - left); break;
 			case '*':   numbers.push(right * left); break;
 			case '/':   numbers.push(right / left); break;
 			default:
-				cout << "неопознанный оператор " << sign << endl;
+				cout << "неопознанный оператор " << sign1 << endl;
 				return 0;
 			}
 		}
 	}
-	cout << result << "=" << numbers.top() << ";" << endl;
+	cout << endl << result << "=" << numbers.top() << ";" << endl;
 	return 0;
 }
