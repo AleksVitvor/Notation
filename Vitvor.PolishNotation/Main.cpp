@@ -48,6 +48,10 @@ int main() {
 		{
 
 			numbers.push(value);
+			if (value != 0) 
+			{
+				cout << value << " ";
+			}
 			j = 0;
 			value = 0;
 		}
@@ -63,6 +67,10 @@ int main() {
 			else if (sign == ')')
 			{
 				numbers.push(value);
+				if (value != 0)
+				{
+					cout << value << " ";
+				}
 				value = 0;
 				j = 0;
 				while (symbols.top() != '(')
@@ -72,17 +80,7 @@ int main() {
 					int left = numbers.top();
 					numbers.pop();
 					int right = numbers.top();
-					if (!flag)
-					{
-						cout << right << " " << left << " ";
-						flag = true;
-						cout << sign1 << " ";
-					}
-					else
-					{
-						cout << right << " ";
-						cout << sign1 << " ";
-					}
+					cout << sign1 << " ";
 					numbers.pop();
 					switch (sign1) {
 					case '+':   numbers.push(right + left); break;
@@ -108,17 +106,7 @@ int main() {
 				numbers.pop();
 				int right = numbers.top();
 				numbers.pop();
-				if (!flag)
-				{
-					cout << right << " " << left << " ";
-					flag = true;
-					cout << sign1 << " ";
-				}
-				else
-				{
-					cout << right << " ";
-					cout << sign1 << " ";
-				}
+				cout << sign1 << " ";
 				switch (sign1) {
 				case '+':   numbers.push(right + left); break;
 				case '-':   numbers.push(right - left); break;
@@ -150,7 +138,6 @@ int main() {
 			numbers.pop();
 			if (!flag)
 			{
-				cout << right << " " << left << " ";
 				flag = true;
 				cout << sign1 << " ";
 			}
